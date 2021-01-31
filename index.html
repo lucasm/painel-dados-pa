@@ -2,26 +2,109 @@
 <html lang="pt-br">
 	<head>
 		<meta charset="UTF-8">
-		<title>Leaflet - Select - Municípios do Pará</title>
-		<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css"/>
-		<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+		<title>Dados Municípios do Pará</title>
+
+		<link rel="stylesheet" href="https://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css"/>
+		<script src="https://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
 	</head>
 	
 	<style>
-		html, body, #map {
+		* {
 			padding:0px;
 			margin:0px;
+		}
+		html, body {
 			height:100%;
 			width:100%;
+			font-family: monospace;
+			font-size: 16px;
+		}
+		#map {
+			float: left;
+			height:100%;
+			width:70%;
+		}
+		#info {
+			float: left;
+			height: 100%;
+			width: 30%;
+			background: #fff;
+			border-right: 3px solid #d4dadc;
+			box-sizing: border-box;
+		}
+		#info img {
+			width: 160px;
+			padding: 2rem 0;
+		}
+		#logo {
+			text-align: center;
+		}
+		a {
+			color: black;
+			font-weight: bold;
+		}
+		ul {
+    		list-style: none;
+		}
+		ul, #credits {
+			padding: 3rem 3rem 2rem;
+		}
+		ul li {
+			padding: 0 0 1rem;
+		}
+		span {
+			font-weight: bold;
+		}
+		.leaflet-select {
+			padding: .25rem;
+		}
+		.leaflet-bar, .leaflet-select {
+			box-shadow: 0 1px 5px rgb(0 0 0 / 50%);
+			border-radius: 4px;
+		}
+		#credits {
+			position: absolute;
+			bottom: 0;
 		}
 	</style>
 	
 	<body>
 
+		<div id="info">
+
+			<div id="logo">
+				<a id="link" href="https://pt.wikipedia.org/wiki/Par%C3%A1" target="_blank">
+					<img src="https://upload.wikimedia.org/wikipedia/commons/0/02/Bandeira_do_Par%C3%A1.svg" alt="Bandeira do Estado do Pará"/>
+					<h1 id="nome">Pará</h1>
+				</a>
+			</div>
+
+			<div id="data">
+				<ul>
+					<li>Região: <span id="mesoregiao">Norte</span></li>
+					<li>População: <span id="populacao">8.578.051</span></li>
+					<li>Gestão: <a id="linkGestor" href="https://google.com/search?q=Hélder+Barbalho+(MDB)" target="_blank"><span id="gestor">Hélder Barbalho (MDB)</span></a></li>
+					<li>IEGM: <span id="iegm">X</span></li>
+					<li>Trabalho e renda: <span id="#">X</span></li>
+					<li>Educação: <span id="#">IDEB</span></li>
+					<li>Economia: <span id="#">PIB</span></li>
+					<li>Saúde: <span id="#">COVID</span></li>
+					<li>Território: <span id="#">X</span></li>
+					<li>Meio ambiente: <span id="#">X</span></li>
+					<li>Sites: <span id="#">Prefeitura</span>, <span id="#">Câmara</span>, <span id="#">TCM-PA</span>, <span id="#">MPCM-PA</span></li>
+				</ul>
+			</div>
+
+			<div id="credits">
+				<p>Desenvolvido por <a id="link" href="https://lucasm.dev" target="_blank">Lucas Menezes</a></p>
+			</div>
+
+		</div>
+
 		<div id="map"></div>
 
-		<script src="municipios-para.geojson.js"></script>
-		<script src="app.js"></script>
+		<script src="/dados-municipios-para.js"></script>
+		<script src="/app.js"></script>
 
 	</body>
 </html>

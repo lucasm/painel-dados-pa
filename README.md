@@ -1,3 +1,16 @@
-# Mapa dos Municípios do Estado do Pará
+# Dados dos Municípios do Estado do Pará
 
-Mapa com select input dos Municípios do Estado do Pará utilizando a biblioteca Leaflet e dados GeoJSON.
+Dashboard com mapa e dados dos 144 municípios do Estado do Pará.
+
+### App
+
+- `app.js` e `index.html`
+- Mapa: Leaflet
+- Mapa layer: CARTO
+- Coordenadas: `municipios-para.geojson.js`
+- Gráficos: Chart.js
+- Dados: IBGE e Wikipédia
+
+### Licensa
+
+MIT

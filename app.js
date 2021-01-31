@@ -1,3 +1,54 @@
+/*
+	DATA
+*/
+
+// população
+var dataPopulacao = [];
+
+fetch("https://servicodados.ibge.gov.br/api/v3/agregados/6579/periodos/2020/variaveis/9324?localidades=N6[N3[15]]")
+.then(function(response){
+  response.json().then(function(data){
+	dataPopulacao = data;
+	});
+  })
+.catch(function(err){ 
+  console.error('Erro ao consultar API População', err);
+});
+
+function setPopulacao(idMunicipio) {
+
+	for (i in dataPopulacao[0].resultados[0].series) {
+
+		if (idMunicipio == dataPopulacao[0].resultados[0].series[i].localidade.id) {
+			
+			var populacao = dataPopulacao[0].resultados[0].series[i].serie[2020];
+			document.getElementById("populacao").innerHTML = parseInt(populacao).toLocaleString('pt-BR');
+		}
+	}
+
+
+}
+
+// localidade
+function getLocalidade(idMunicipio) {
+	fetch("https://servicodados.ibge.gov.br/api/v1/localidades/distritos/" + idMunicipio + "05")
+	.then(function(response){
+	  response.json().then(function(data){
+		document.getElementById("mesoregiao").innerHTML = data[0].municipio.microrregiao.mesorregiao.nome;
+		});
+	  })
+	.catch(function(err){ 
+	  console.error('Erro ao consultar API Localidade', err);
+	});
+}
+
+// prefeito
+
+
+/*
+	MAPA
+*/
+
 var baseLayer = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',{attribution: 'Tiles &copy; CartoDB'});
 var map = L.map("map",{layers: [baseLayer], center: [-3.5500000, -52.0000000], zoom: 6});
 
@@ -53,7 +104,7 @@ L.CountrySelect = L.Control.extend({
 		if (type == 'change'){
 			this.onChange = handler;
 			L.DomEvent.addListener(this.select,'change',this._onChange,this);			
-		} else if (type == 'click'){ //don't need this here probably, but for convenience?
+		} else if (type == 'click'){ // don't need this here probably, but for convenience?
 			this.onClick = handler;
 			L.DomEvent.addListener(this.select,'click',this.onClick,this);			
 		} else {
@@ -89,5 +140,22 @@ select.on('change', function(e){
 
 	map.addLayer(country);
 	map.fitBounds(country.getBounds());
-	
+
+	// put data on #info
+
+	var municipioId = e.feature.properties.id;
+	var municipioNome = e.feature.properties.name;
+	var municipioGestor = e.feature.properties.gestor;
+
+	document.getElementById("link").setAttribute('href', "https://pt.wikipedia.org/wiki/" + municipioNome);
+	document.getElementById("nome").innerHTML = municipioNome;
+	document.getElementById("gestor").innerHTML = municipioGestor;
+	document.getElementById("linkGestor").setAttribute('href', "https://google.com/search?q=" + municipioGestor);
+
+
+	// IBGE - localidades
+
+	getLocalidade(municipioId);
+	setPopulacao(municipioId);
+
 });
