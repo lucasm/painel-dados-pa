@@ -20,13 +20,13 @@ Agregar dados, informações e indicadores públicos do Estado e dos Municípios
 ### Tarefas
 
 - [x] Mapa do estado e dos 144 municípios do Pará
-- [ ] Completar dados dos municípios em `dados-estado-pa.js`
+- [ ] Compilar dados dos municípios em `dados-estado-pa.js`
 - [ ] Definir fonte de dados dos indicadores
 - [ ] Inserir gráficos, dimensões e abas (?)
 
 ### Estrutura do app
 
-- `app.js`, `dados-estado-pa.js` e `dados-estado-geojson-pa` inicializados em `index.html`
+- `app.js`, `dados-estado-pa.js` e `dados-estado-pa-geojson.js` inicializados em `index.html`
 - Mapa: Leaflet e CARTO
 
 

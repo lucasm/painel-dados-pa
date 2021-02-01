@@ -10,4 +10,6 @@ var dadosPa = [
     { "id": "1500305", "name": "Afuá", "gestor": "Mazinho Salomão (PSD)", "links": ["#","#", "#"] },
 
     { "id": "1500347", "name": "Água Azul do Norte", "gestor": "Vandin (PSDB)", "links": ["https://aguaazuldonorte.pa.gov.br/","#", "#"] },
+
+    { "id": "1500404", "name": "Alenquer", "gestor": "Tom Farias (MDB)", "links": ["https://alenquer.pa.gov.br/ ","#", "#"] },
 ];
