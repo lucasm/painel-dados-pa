@@ -1,14 +1,14 @@
 <div align="center">
-  <a href="https://dados-municipios-para.vercel.app/">
+  <a href="https://painel-dados-pa.vercel.app/">
     <img width="92" height="64" src="https://upload.wikimedia.org/wikipedia/commons/0/02/Bandeira_do_Par%C3%A1.svg">
   </a>
 </div>
 
 <h1 align="center">
-Dados do Pará
+Painel de Dados do Pará
 </h1>
 <p align="center">
-Empoderando os cidadãos do Estado do Pará com dados públicos<br>
+Empoderando os cidadãos do Pará com dados públicos<br>
 </p>
 
 
