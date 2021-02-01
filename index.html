@@ -2,108 +2,65 @@
 <html lang="pt-br">
 	<head>
 		<meta charset="UTF-8">
-		<title>Dados Municípios do Pará</title>
+		<title>Painel de Dados do Pará</title>
 
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.css"/>
+		<link rel="stylesheet" href="./app.css"/>
 		<script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
 	</head>
-	
-	<style>
-		* {
-			padding:0px;
-			margin:0px;
-		}
-		html, body {
-			height:100%;
-			width:100%;
-			font-family: monospace;
-			font-size: 16px;
-		}
-		#map {
-			float: left;
-			height:100%;
-			width:70%;
-		}
-		#info {
-			float: left;
-			height: 100%;
-			width: 30%;
-			background: #fff;
-			border-right: 3px solid #d4dadc;
-			box-sizing: border-box;
-		}
-		#info img {
-			width: 160px;
-			padding: 2rem 0;
-		}
-		#logo {
-			text-align: center;
-		}
-		a {
-			color: black;
-			font-weight: bold;
-		}
-		ul {
-    		list-style: none;
-		}
-		ul, #credits {
-			padding: 3rem 3rem 2rem;
-		}
-		ul li {
-			padding: 0 0 1rem;
-		}
-		span {
-			font-weight: bold;
-		}
-		.leaflet-select {
-			padding: .25rem;
-		}
-		.leaflet-bar, .leaflet-select {
-			box-shadow: 0 1px 5px rgb(0 0 0 / 50%);
-			border-radius: 4px;
-		}
-		#credits {
-			position: absolute;
-			bottom: 0;
-		}
-	</style>
-	
 	<body>
 
 		<div id="info">
 
 			<div id="logo">
-				<a id="link" href="https://pt.wikipedia.org/wiki/Par%C3%A1" target="_blank">
-					<img src="https://upload.wikimedia.org/wikipedia/commons/0/02/Bandeira_do_Par%C3%A1.svg" alt="Bandeira do Estado do Pará"/>
-					<h1 id="nome">Pará</h1>
+				<a id="link" href="#">
+					<img src="./bandeira-do-para.svg" alt="Bandeira do Estado do Pará"/>
+					<h1 id="nome">Painel de Dados do Pará</h1>
 				</a>
 			</div>
 
-			<div id="data">
+			<div id="welcome">
+				<h2>Bem vindo(a) <br/><br/>Use o seletor para começar a explorar os dados</h2>
+			</div>
+
+			<div id="data" style="display:none;">
 				<ul>
-					<li>Região: <span id="mesoregiao">Norte</span></li>
 					<li>População: <span id="populacao">8.578.051</span></li>
-					<li>Gestão: <a id="linkGestor" href="https://google.com/search?q=Hélder+Barbalho+(MDB)" target="_blank"><span id="gestor">Hélder Barbalho (MDB)</span></a></li>
+					<li>Região: <span id="mesoregiao">Norte</span></li>
+
+					<li>Gestão: <a id="linkGestor" href="#"><span id="gestor">X</span></a> em <a id="linkOrgaoExe" href="#"><span id="orgaoExe">X</span></a> com <a id="linkOrgaoLeg" href="#"><span id="orgaoLeg">X</span></a></li>
+
+					<li>Fiscalize: <a id="govDiario" href="#">Diário</a>, <a id="govCompras" href="#">Compras</a>, <a id="govTransp" href="#">Transparência</a>, <a id="govContas" href="#">Contas</a></li>
+					
+					<li>Manifeste: <a id="govOuvidoria" href="#">Ouvidoria</a>,
+						<a href="https://www2.mppa.mp.br/">MP</a>,
+						<a id="linkOrgaoCont" href="https://www.tcm.pa.gov.br/"><span id="orgaoCont">TC</span></a>,
+						<a href="http://www.tjpa.jus.br/">TJ</a>
+					</li>
+
+					<hr/>
+					<li>PIB: <span id="#">X</span></li>
+					<li>Desemprego: <span id="#">X</span></li>
+					<li>IDEB: <span id="#">X</span></li>
+					<li>Casos COVID: <span id="#">X</span></li>
+					<li>Queimadas: <span id="#">X</span></li>
 					<li>IEGM: <span id="iegm">X</span></li>
-					<li>Trabalho e renda: <span id="#">X</span></li>
-					<li>Educação: <span id="#">IDEB</span></li>
-					<li>Economia: <span id="#">PIB</span></li>
-					<li>Saúde: <span id="#">COVID</span></li>
-					<li>Território: <span id="#">X</span></li>
-					<li>Meio ambiente: <span id="#">X</span></li>
-					<li>Sites: <span id="#">Prefeitura</span>, <span id="#">Câmara</span>, <span id="#">TCM-PA</span>, <span id="#">MPCM-PA</span></li>
+
+					<!-- <li>Território: <span id="#">1.245.870.798 km²</span></li> -->
+
 				</ul>
 			</div>
 
 			<div id="credits">
-				<p>Desenvolvido por <a id="link" href="https://lucasm.dev" target="_blank">Lucas Menezes</a></p>
+				<p>Projeto <a href="https://github.com/lucasmezs/painel-dados-pa" target="_blank">open source</a> de <a href="https://lucasm.dev" target="_blank">Lucas Menezes</a></p>
 			</div>
 
 		</div>
 
 		<div id="map"></div>
 
-		<script src="./dados-municipios-para.js"></script>
+		<script src="./dados-estado-pa.js"></script>
+		<script src="./dados-estado-pa-geojson.js"></script>
 		<script src="./app.js"></script>
 
 	</body>

@@ -1,0 +1,84 @@
+* {
+    padding:0px;
+    margin:0px;
+}
+html, body {
+    height:100%;
+    width:100%;
+    font-family: monospace;
+    font-size: 16px;
+}
+h1 {
+    font-size: 3rem;
+    padding: 0 2rem;
+}
+#map {
+    float: left;
+    height: 100%;
+    width: 65%;
+}
+#info {
+    position: relative;
+    float: left;
+    height: 100%;
+    width: 35%;
+    background: #fff;
+    border-right: 3px solid #d4dadc;
+    box-sizing: border-box;
+}
+#info img {
+    width: 160px;
+    padding: 2rem 0 1rem;
+}
+#logo {
+    text-align: center;
+}
+a {
+    color: #0074d8;
+    font-weight: bold;
+    text-decoration: none;
+}
+a:hover, a:focus {
+    text-decoration: underline;
+}
+ul {
+    list-style: none;
+}
+ul, #credits, #welcome {
+    padding: 3rem 3rem 2rem;
+}
+ul li {
+    padding: 0 0 1.2rem;
+}
+span {
+    font-weight: bold;
+}
+.leaflet-select {
+    padding: .45rem;
+}
+.leaflet-bar, .leaflet-select {
+    box-shadow: 0 1px 5px rgb(0 0 0 / 50%);
+    border-radius: 4px;
+}
+#credits {
+    position: absolute;
+    bottom: 0;
+    background: #fff;
+    font-size: .8rem;
+}
+#welcome {
+    color: #8b9aa5;
+    margin-top: 3rem;
+}
+#data, .leaflet-select {
+    font-size: 1.2rem;
+    font-family: monospace;
+}
+hr {
+    border: 1px solid #d4dadc;
+    margin: 1rem 0 2rem;
+}
+
+.leaflet-control-attribution {
+    display: none;
+}

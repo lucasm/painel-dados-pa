@@ -2,7 +2,7 @@
 	DATA
 */
 
-// população
+// populacao
 var dataPopulacao = [];
 
 fetch("https://servicodados.ibge.gov.br/api/v3/agregados/6579/periodos/2020/variaveis/9324?localidades=N6[N3[15]]")
@@ -42,15 +42,65 @@ function getLocalidade(idMunicipio) {
 	});
 }
 
-// prefeito
+// gestao e orgaos
+function setGestorOrgaos(id) {
 
+	// gestor
+	for (i in dadosPa) {
+
+		if (id == dadosPa[i].id) {
+			document.getElementById("gestor").innerHTML = dadosPa[i].gestor;
+			document.getElementById("linkGestor").setAttribute('href', "https://google.com/search?q=" + dadosPa[i].gestor);
+			document.getElementById("govTransp").setAttribute('href', dadosPa[i].links[2]);
+			document.getElementById("govCompras").setAttribute('href', dadosPa[i].links[3]);
+			document.getElementById("govDiario").setAttribute('href', dadosPa[i].links[4]);
+			document.getElementById("govContas").setAttribute('href', dadosPa[i].links[5]);
+			document.getElementById("govOuvidoria").setAttribute('href', dadosPa[i].links[6]);
+		}
+	}
+	
+	// orgaos, se estadual
+	if (id == "15") {
+
+		document.getElementById("orgaoExe").innerHTML = "Governo";
+		document.getElementById("orgaoLeg").innerHTML = "Assembléia";
+		document.getElementById("orgaoCont").innerHTML = "TCE";
+		document.getElementById("linkOrgaoExe").setAttribute("href", dadosPa[0].links[0]);
+		document.getElementById("linkOrgaoLeg").setAttribute("href", dadosPa[0].links[1]);
+		document.getElementById("linkOrgaoCont").setAttribute("href", "https://www.tce.pa.gov.br/");
+
+	} else {
+		// municipal
+		document.getElementById("orgaoExe").innerHTML = "Prefeitura";
+		document.getElementById("orgaoLeg").innerHTML = "Câmara";
+		document.getElementById("orgaoCont").innerHTML = "TCM";
+		document.getElementById("linkOrgaoCont").setAttribute("href", "https://www.tcm.pa.gov.br/");
+
+		for (i in dadosPa) {
+
+			if (id == dadosPa[i].id) {
+				document.getElementById("linkOrgaoExe").setAttribute("href", dadosPa[i].links[0]);
+				document.getElementById("linkOrgaoLeg").setAttribute("href", dadosPa[i].links[1]);
+			}
+
+		}
+	}
+	
+}
 
 /*
 	MAPA
 */
 
 var baseLayer = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',{attribution: 'Tiles &copy; CartoDB'});
-var map = L.map("map",{layers: [baseLayer], center: [-3.5500000, -52.0000000], zoom: 6});
+var map = L.map("map",{
+		layers: [baseLayer],
+		center: [-3.5500000, -52.0000000],
+		zoom: 6,
+		maxZoom: 18,
+		zoomOffset: -1,
+		minZoom: 6	
+	});
 
 
 L.CountrySelect = {};
@@ -58,10 +108,10 @@ L.CountrySelect = {};
 L.CountrySelect = L.Control.extend({
 	options: {
 		position: 'topright',
-		title: 'Selecione um município',
+		title: 'Selecione',
 		exclude: [],
 		include: [],
-		municipios: municipiosPa.features,
+		municipios: dadosGeojsonPa.features,
 	},
 	onAdd: function(map) {
 		this.div = L.DomUtil.create('div','leaflet-select-container');
@@ -88,7 +138,7 @@ L.CountrySelect = L.Control.extend({
 		
 		for (i in cidade){
 			if (this.options.exclude.indexOf(cidade[i]) == -1){
-				content+='<option value='+cidade[i]+'>'+municipiosPa.features[i].properties.name+'</option>';
+				content+='<option value='+cidade[i]+'>'+dadosGeojsonPa.features[i].properties.name+'</option>';
 			}
 		}
 
@@ -141,21 +191,33 @@ select.on('change', function(e){
 	map.addLayer(country);
 	map.fitBounds(country.getBounds());
 
-	// put data on #info
+	// info#data
 
-	var municipioId = e.feature.properties.id;
-	var municipioNome = e.feature.properties.name;
-	var municipioGestor = e.feature.properties.gestor;
+	var id = e.feature.properties.id;
+	var nome = e.feature.properties.name;
+	
+	if ( document.getElementById("welcome") ) {
+		document.getElementById("welcome").style.display = "none";
+		document.getElementById("data").style.display = "block";
+	}
 
-	document.getElementById("link").setAttribute('href', "https://pt.wikipedia.org/wiki/" + municipioNome);
-	document.getElementById("nome").innerHTML = municipioNome;
-	document.getElementById("gestor").innerHTML = municipioGestor;
-	document.getElementById("linkGestor").setAttribute('href', "https://google.com/search?q=" + municipioGestor);
+	document.getElementById("nome").innerHTML = nome;
+	document.getElementById("link").setAttribute("target", "_blank");
+	document.getElementById("link").setAttribute('href', "https://pt.wikipedia.org/wiki/" + nome);
 
-
-	// IBGE - localidades
-
-	getLocalidade(municipioId);
-	setPopulacao(municipioId);
+	// dados
+	getLocalidade(id);
+	setPopulacao(id);
+	setGestorOrgaos(id);
 
 });
+
+
+// target _blank
+
+window.onload = function(){
+	var anchors = document.getElementById('data').getElementsByTagName('a');
+	for (var i=0; i<anchors.length; i++){
+	  anchors[i].setAttribute('target', '_blank');
+	}
+  }
