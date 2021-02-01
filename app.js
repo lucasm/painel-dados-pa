@@ -15,14 +15,33 @@ fetch("https://servicodados.ibge.gov.br/api/v3/agregados/6579/periodos/2020/vari
   console.error('Erro ao consultar API População', err);
 });
 
-function setPopulacao(idMunicipio) {
+// pib
+var dataPib = [];
 
+fetch("https://servicodados.ibge.gov.br/api/v3/agregados/5938/periodos/2018/variaveis/37?localidades=N6[N3[15]]")
+.then(function(response){
+  response.json().then(function(data){
+	dataPib = data;
+	});
+  })
+.catch(function(err){ 
+  console.error('Erro ao consultar API PIB', err);
+});
+
+function setData(id) {
+
+	// populacao
 	for (i in dataPopulacao[0].resultados[0].series) {
-
-		if (idMunicipio == dataPopulacao[0].resultados[0].series[i].localidade.id) {
-			
+		if (id == dataPopulacao[0].resultados[0].series[i].localidade.id) {
 			var populacao = dataPopulacao[0].resultados[0].series[i].serie[2020];
 			document.getElementById("populacao").innerHTML = parseInt(populacao).toLocaleString('pt-BR');
+		}
+	}
+	// pib
+	for (i in dataPib[0].resultados[0].series) {
+		if (id == dataPib[0].resultados[0].series[i].localidade.id) {
+			var pib = dataPib[0].resultados[0].series[i].serie[2018];
+			document.getElementById("pib").innerHTML = parseInt(pib).toLocaleString('pt-BR');
 		}
 	}
 
@@ -30,8 +49,8 @@ function setPopulacao(idMunicipio) {
 }
 
 // localidade
-function getLocalidade(idMunicipio) {
-	fetch("https://servicodados.ibge.gov.br/api/v1/localidades/distritos/" + idMunicipio + "05")
+function getLocalidade(id) {
+	fetch("https://servicodados.ibge.gov.br/api/v1/localidades/distritos/" + id + "05")
 	.then(function(response){
 	  response.json().then(function(data){
 		document.getElementById("mesoregiao").innerHTML = data[0].municipio.microrregiao.mesorregiao.nome;
@@ -129,7 +148,7 @@ L.CountrySelect = L.Control.extend({
 			a.push(municipios[i].properties.nome);
 		}
 		a.sort();
-		console.log(typeof a, a);
+		// console.log(typeof a, a);
 
 
 		var cidade = Object.keys(municipios);
@@ -176,7 +195,7 @@ var select = L.countrySelect({exclude:"Abaetetuba"});
 
 select.addTo(map);
 
-// 
+// select event
 
 select.on('change', function(e){
 	if (e.feature === undefined){ //Do nothing on title
@@ -191,30 +210,27 @@ select.on('change', function(e){
 	map.addLayer(country);
 	map.fitBounds(country.getBounds());
 
-	// info#data
-
+	// info data
 	var id = e.feature.properties.id;
 	var nome = e.feature.properties.name;
+
+	document.getElementById("nome").innerHTML = nome;
+	document.getElementById("link").setAttribute("target", "_blank");
+	document.getElementById("link").setAttribute('href', "https://pt.wikipedia.org/wiki/" + nome);
 	
 	if ( document.getElementById("welcome") ) {
 		document.getElementById("welcome").style.display = "none";
 		document.getElementById("data").style.display = "block";
 	}
 
-	document.getElementById("nome").innerHTML = nome;
-	document.getElementById("link").setAttribute("target", "_blank");
-	document.getElementById("link").setAttribute('href', "https://pt.wikipedia.org/wiki/" + nome);
-
-	// dados
+	// APIs calls
 	getLocalidade(id);
-	setPopulacao(id);
+	setData(id);
 	setGestorOrgaos(id);
 
 });
 
-
-// target _blank
-
+// target blank
 window.onload = function(){
 	var anchors = document.getElementById('data').getElementsByTagName('a');
 	for (var i=0; i<anchors.length; i++){
