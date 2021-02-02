@@ -6,6 +6,8 @@
 
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.css"/>
 		<script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap" rel="stylesheet">
 		<link rel="stylesheet" href="./app.css"/>
 	</head>
 	<body>
@@ -20,21 +22,33 @@
 			</div>
 
 			<div id="welcome">
-				<h2>Bem vindo(a) <br/><br/>Use o seletor para explorar os dados do Estado e dos Municípios do Pará</h2>
+				<h2>Bem vindo(a) <br/><br/>Escolha uma dimensão ou use o seletor para explorar os dados dos Municípios e do Estado do Pará</h2>
+
+				<div class="dimensoes">
+					<button>Saúde</button>
+					<button>Demográfia</button>
+					<button>Economia</button>
+					<button>Emprego e renda</button>
+					<button>Educação</button>
+					<button>Mobilidade</button>
+					<button>Social</button>
+					<button>Meio ambiente</button>
+					<button>Gestão e contas</button>
+				</div>
 			</div>
 
 			<div id="data" style="display:none;">
 				<ul>
 					<li>Gestão: <a id="linkGestor" href="#"><span id="gestor">X</span></a> em <a id="linkOrgaoExe" href="#"><span id="orgaoExe">X</span></a> com <a id="linkOrgaoLeg" href="#"><span id="orgaoLeg">X</span></a></li>
 
-					<li>Recursos:
+					<li>Fiscalize:
 						<a id="govDiario" href="#">Diário</a>,
 						<a id="govCompras" href="#">Compras</a>,
 						<a id="govTransp" href="#">Transparência</a>,
 						<a id="govContas" href="#">Contas</a>
 					</li>
 					
-					<li>Ações:
+					<li>Comunique:
 						<a id="govOuvidoria" href="#">Ouvidoria</a>,
 						<a href="https://www2.mppa.mp.br/">MP</a>,
 						<a id="linkOrgaoCont" href="https://www.tcm.pa.gov.br/"><span id="orgaoCont">TC</span></a>
@@ -58,7 +72,7 @@
 			</div>
 
 			<div id="credits">
-				<p>Projeto <a href="https://github.com/lucasmezs/painel-dados-pa" target="_blank">open source</a> por <a href="https://lucasm.dev" target="_blank">Lucas Menezes</a></p>
+				<p>Projeto <a href="https://github.com/lucasmezs/painel-dados-pa" target="_blank">open source</a> desenvolvido por <a href="https://lucasm.dev" target="_blank">Lucas Menezes</a> e alimentado com dados públicos.</p>
 			</div>
 
 		</div>
